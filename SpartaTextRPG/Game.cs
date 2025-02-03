@@ -14,9 +14,10 @@ namespace SpartaTextRPG
 
         public void GameStart()
         {
+            // 초기 세팅
             stateMachine.InitMachine(stateMachine.MainScene);
 
-
+            // 게임 로직
             while (true) 
             {
                 stateMachine.CurrentScene.Update();
