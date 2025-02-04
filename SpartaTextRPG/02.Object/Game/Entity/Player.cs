@@ -58,6 +58,9 @@ namespace SpartaTextRPG
             }
         }
 
+        private int exp;
+        public int Exp { get => exp; set => exp = value; }
+
         // 장비창
         private Dictionary<ItemType, IEquiptable> equipting;
         public Dictionary<ItemType, IEquiptable> Equipting { get => equipting;}
