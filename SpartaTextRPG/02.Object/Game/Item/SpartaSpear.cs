@@ -14,6 +14,8 @@ namespace SpartaTextRPG._02.Object.Game
             weaponType = WeaponType.SPEAR;
             SetInfoWrite($"공격력 +{attack} | 스파르타의 전사들이 사용했다는 전설의 창입니다.");
             isEquipt = false;
+
+            Gold = 3000;
         }
 
         public void TakeItem(Player player)

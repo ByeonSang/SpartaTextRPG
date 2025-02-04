@@ -46,18 +46,13 @@ namespace SpartaTextRPG._02.Object
         public string Information { get => information; }
 
 
-        private int buyGold;
-        public int BuyGold { get => buyGold; protected set => buyGold = value; }
-
-        private int sellGold;
-        public int SellGold { get => sellGold; protected set => sellGold = value; }
+        private int gold;
+        public int Gold { get => gold; protected set => gold = value; }
 
         private JobType jobType;
         public JobType Job { get => jobType; set => jobType = value; } // 직업에 따라서 장착 여부
 
         private ItemType itemType;
         public ItemType Type { get => itemType; set => itemType = value; }
-
-
     }
 }

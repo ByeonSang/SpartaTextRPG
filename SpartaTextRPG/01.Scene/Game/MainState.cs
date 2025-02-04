@@ -48,6 +48,9 @@ namespace SpartaTextRPG.Scene
                 case 2:
                     stateMachine.ChangeScene(stateMachine.MyInventoryScene);
                     break;
+                case 3:
+                    stateMachine.ChangeScene(stateMachine.ShopScene);
+                    break;
             }
 
         }

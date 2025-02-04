@@ -13,6 +13,8 @@ namespace SpartaTextRPG._02.Object.Game
             defence = 5;
             SetInfoWrite($"방어력 +{defence} | 무쇠로 만들어져 튼튼한 갑옷입니다.");
             isEquipt = false;
+
+            Gold = 2100;
         }
 
         public void TakeItem(Player player)

@@ -32,6 +32,16 @@ namespace SpartaTextRPG
         public JobType Job { get => jobType; private set => jobType = value; }
 
         private int gold;
-        public int Gold { get => gold; private set => gold = value; }
+        public int Gold
+        {
+            get => gold;
+            set
+            {
+                gold = value;
+
+                if (gold < 0) gold = 0;
+                else if (gold > Game.MaxGold) gold = Game.MaxGold;
+            }
+        }   
     }
 }

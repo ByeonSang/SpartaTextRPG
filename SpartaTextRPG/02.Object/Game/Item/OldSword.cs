@@ -15,6 +15,8 @@ namespace SpartaTextRPG._02.Object.Game
 
             SetInfoWrite($"공격력 +{attack} | 쉽게 볼 수 있는 낡은 검 입니다.");
             isEquipt = false;
+
+            Gold = 1200;
         }
 
         public void TakeItem(Player player)

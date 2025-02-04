@@ -15,26 +15,38 @@
             y = _y;
         }
 
-        public void AddItem(T item)
+        public T AddItem(T item)
         {
             if (item == null)
-                return;
+                return default(T);
 
             if (items.Count < x * y)
+            {
                 items.Add(item);
+                return item;
+            }
             else
+            {
                 Console.WriteLine("인벤토리가 꽉 찼습니다.");
+                return default(T);
+            }
         }
 
-        public void RemoveItem(T item)
+        public T RemoveItem(T item)
         {
             if (item == null)
-                return;
+                return default(T);
 
             if(items.Count > 0)
+            {
                 items.Remove(item);
+                return item;
+            }
             else
+            {
                 Console.WriteLine("인벤토리에 아이템이 없습니다.");
+                return default(T);
+            }
         }
 
         public List<T> GetItems()
