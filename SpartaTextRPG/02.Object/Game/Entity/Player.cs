@@ -19,6 +19,19 @@ namespace SpartaTextRPG
             Type = EntityType.Player;
             gold = _gold;
             jobType = _jobType;
+
+            // 착용중인 장비템 클래스를 따로 파도 좋을꺼 같음
+            // 직업에 따라서 착용하는 무기도 달라질테니
+            equipting = new Dictionary<ItemType, IEquiptable>(); // 현재 장착중인 아이템
+            equipting.Add(ItemType.Equipment, null);
+            equipting.Add(ItemType.Weapon, null);
+        }
+
+        public void AddLevel()
+        {
+            Level++;
+            Attack += 0.5f;
+            Defence += 1;
         }
 
         public override void TakeDamage(int _damage)
@@ -26,6 +39,7 @@ namespace SpartaTextRPG
             Health -= _damage;
         }
 
+        // 장비 인벤토리
         public Inventory<IEquiptable> equipInventory;
 
         private JobType jobType;
@@ -42,6 +56,10 @@ namespace SpartaTextRPG
                 if (gold < 0) gold = 0;
                 else if (gold > Game.MaxGold) gold = Game.MaxGold;
             }
-        }   
+        }
+
+        // 장비창
+        private Dictionary<ItemType, IEquiptable> equipting;
+        public Dictionary<ItemType, IEquiptable> Equipting { get => equipting;}
     }
 }

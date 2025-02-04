@@ -9,6 +9,6 @@ namespace SpartaTextRPG.Interface
 {
     internal interface IWeapon
     {
-        public WeaponType wpType { get; set; }
+        public WeaponType wpType { get; }
     }
 }

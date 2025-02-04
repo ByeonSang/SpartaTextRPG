@@ -15,7 +15,7 @@ namespace SpartaTextRPG
     }
     internal abstract class Entity : ICharacter
     {
-        public Entity(string _name, int _level, int _health, int _defence, int _attack) 
+        public Entity(string _name, int _level, int _health, int _defence, float _attack) 
         {
             name = _name;
             level = _level;
@@ -49,8 +49,8 @@ namespace SpartaTextRPG
         private int defence;
         public int Defence { get => defence; set => defence = value; }
 
-        private int attack;
-        public int Attack { get => attack; set => attack = value; }
+        private float attack;
+        public float Attack { get => attack; set => attack = value; }
 
         private EntityType type;
         public EntityType Type { get => type; set => type = value; }

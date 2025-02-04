@@ -11,6 +11,7 @@ namespace SpartaTextRPG._02.Object
     {
         None,
         Equipment,
+        Weapon,
         Consumption,
         ETC,
 
@@ -52,7 +53,6 @@ namespace SpartaTextRPG._02.Object
         private JobType jobType;
         public JobType Job { get => jobType; set => jobType = value; } // 직업에 따라서 장착 여부
 
-        private ItemType itemType;
-        public ItemType Type { get => itemType; set => itemType = value; }
+        protected ItemType itemType;
     }
 }

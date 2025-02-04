@@ -13,6 +13,6 @@ namespace SpartaTextRPG.Interface
         public void TakeItem(Player player);
         public void TakeOffItem(Player player);
 
-        public bool IsEquipt { get; set; }
+        public bool IsEquipt { get; }
     }
 }
