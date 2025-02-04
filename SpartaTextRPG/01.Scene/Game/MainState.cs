@@ -53,6 +53,9 @@ namespace SpartaTextRPG.Scene
                 case 3:
                     stateMachine.ChangeScene(stateMachine.ShopScene);
                     break;
+                case 4:
+                    stateMachine.ChangeScene(stateMachine.SelctDungeonScene);
+                    break;
                 case 5:
                     stateMachine.ChangeScene(stateMachine.RestScene);
                     break;

@@ -17,6 +17,7 @@ namespace SpartaTextRPG
             shopBuyState = new ShopBuyState(this, game.Player, game.ItemShop);
             shopSaleState = new ShopSaleState(this, game.Player, game.ItemShop);
             restState = new RestState(this, game.Player);
+            selectDungeonState = new SelectDungeonState(this, game.Player, game.Dungeons);
         }
         
         public void InitMachine(State initializeScene)
@@ -29,7 +30,8 @@ namespace SpartaTextRPG
         /// nextState는 StateMacine에 있는 OOOOScene 프로퍼티를 넣으시면 됩니다.
         /// </summary>
         /// <param name="nextState"></param>
-        public void ChangeScene(State nextState)
+        /// <param name="idx">바꿀 Enter에 index 수신</param>
+        public void ChangeScene(State nextState, int idx = -1)
         {
             if (currentState != null)
                 currentState.Exit();
@@ -64,5 +66,8 @@ namespace SpartaTextRPG
 
         private RestState restState;
         public RestState RestScene { get => restState; }
+
+        private SelectDungeonState selectDungeonState;
+        public SelectDungeonState SelctDungeonScene { get => selectDungeonState; }
     }
 }

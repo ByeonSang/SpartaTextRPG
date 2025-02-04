@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SpartaTextRPG._03.Dungeon
 {
@@ -11,8 +13,11 @@ namespace SpartaTextRPG._03.Dungeon
         public Dungeon(Player _player)
         {
             player = _player;
+            name = "";
+            level = 0;
             recommendDefence = new int[3]; // Easy, Normal, Hard
             clearGold = new int[3];
+            clearExp = new int[3];
             amountDamage = new KeyValuePair<int, int>[3]; // Key: 최소 대미지, Value : 최대 대미지
             
         }
@@ -65,6 +70,12 @@ namespace SpartaTextRPG._03.Dungeon
 
 
         protected Player player;
+
+        protected string name;
+        public string Name { get => name; }
+
+        protected int level;
+        public int Level { get => level; }
 
         protected int[] recommendDefence; // 권장 방어력
         public int[] RecommendDefence { get => recommendDefence; }

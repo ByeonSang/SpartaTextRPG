@@ -11,6 +11,8 @@ namespace SpartaTextRPG._03.Dungeon.Game
         public TrainningRoom(Player _player) : base(_player)
         {
             // 초기화 ( 권장 방어력, 클리어시 보상, 피해량 )
+            name = "훈련실";
+            level = 1;
             Initialize();
         }
 

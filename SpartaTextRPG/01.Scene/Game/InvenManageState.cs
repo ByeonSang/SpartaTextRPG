@@ -29,9 +29,7 @@ namespace SpartaTextRPG._01.Scene
                 #region userInput
                 if (!GetUserInput(out selectedMenu)) 
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.ReadKey(true);
-                    Console.Clear();
+                    Render.NoticeText("잘못된 입력입니다.\n", true);
                     continue;
                 }
                 #endregion
@@ -110,7 +108,7 @@ namespace SpartaTextRPG._01.Scene
 
                 Console.Write($"- {i % inventory.Width + 1} ");
                 string icon = items[i].IsEquipt? "[E]" : "";
-                RenderText(icon, ConsoleColor.Yellow);
+                Render.ColorText(icon, ConsoleColor.Yellow);
 
                 Item item = items[i].GetItem();
                 Console.WriteLine($"{item.Name}  | {item.Information}");
@@ -141,16 +139,9 @@ namespace SpartaTextRPG._01.Scene
             return true;
         }
 
-        public void RenderText(string text, ConsoleColor color = ConsoleColor.White)
-        {
-            Console.ForegroundColor = color;
-            Console.Write(text);
-            Console.ResetColor();
-        }
-
         public override void ShowTitle()
         {
-            RenderText("인벤토리 - 장착 관리\n", ConsoleColor.Yellow);
+            Render.ColorText("인벤토리 - 장착 관리\n", ConsoleColor.Yellow);
             Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
         }
         #endregion
