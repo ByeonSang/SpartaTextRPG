@@ -17,7 +17,7 @@ namespace SpartaTextRPG.Scene
 
         public override void Enter()
         {
-            //TODO::
+            //TODO:
         }
 
         public override void Exit()
