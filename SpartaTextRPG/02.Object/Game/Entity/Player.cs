@@ -12,7 +12,7 @@ namespace SpartaTextRPG
 
     internal class Player : Entity
     {
-        public Player(string _name, int _level, int _health, int _defence, int _attack, int _gold,JobType _jobType) : base(_name, _level, _health, _defence, _attack)
+        public Player(string _name, int _level, int _maxHealth, int _defence, int _attack, int _gold,JobType _jobType) : base(_name, _level, _maxHealth, _defence, _attack)
         {
             equipInventory = new Inventory<IEquiptable>(5, 5);// 5 x 5 인벤토리 생성
 

@@ -7,18 +7,17 @@ using SpartaTextRPG.Interface;
 
 namespace SpartaTextRPG.Scene
 {
-    internal class StatInfoState : State, IMenuList, ITextRenderer
+    internal class StatInfoState : State
     {
         public StatInfoState(StateMachine _stateMachine, Player _player) : base(_stateMachine)
         {
             player = _player;
-            TotalMenuCount = 1;
+            totalMenuCount = 1;
         }
 
         public override void Enter()
         {
-            RenderText("상태 보기", ConsoleColor.Yellow);
-            Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
+            //TODO::
         }
 
         public override void Exit()
@@ -49,6 +48,7 @@ namespace SpartaTextRPG.Scene
 
             while (true)
             {
+                ShowTitle();
                 Console.WriteLine($"Lv. {player.Level.ToString("D2")}");
                 Console.WriteLine($"Chad ( {stringJob} )");
                 Console.WriteLine($"공격력 : {player.Attack}");
@@ -72,12 +72,12 @@ namespace SpartaTextRPG.Scene
             stateMachine.ChangeScene(stateMachine.MainScene);
         }
 
-        public void ShowMenu(int idx = 0)
+        public override void ShowMenu(int idx = 0)
         {
             Console.WriteLine("0. 나가기");
         }
 
-        public bool GetUserInput(out int value)
+        public override bool GetUserInput(out int value)
         {
             Console.WriteLine("\n원하시는 행동을 입력해주세요.");
             Console.Write(">> ");
@@ -90,18 +90,11 @@ namespace SpartaTextRPG.Scene
             return true;
         }
 
-        public void RenderText(string text, ConsoleColor color = ConsoleColor.White)
+        public override void ShowTitle()
         {
-            Console.ForegroundColor = color;
-            Console.WriteLine(text);
-            Console.ResetColor();
+            Render.ColorText("상태 보기\n", ConsoleColor.Yellow);
+            Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
         }
-
-        private int selectedMenu;
-        public int SelectedMenu { get => selectedMenu; private set => selectedMenu = value; } // 선택된 메뉴 번호
-
-        private int totalMenuCount;
-        public int TotalMenuCount { get => totalMenuCount; private set => totalMenuCount = value; } // 메뉴 총 갯수
 
         private Player player;
     }

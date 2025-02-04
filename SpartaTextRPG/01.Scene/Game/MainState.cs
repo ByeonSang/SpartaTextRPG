@@ -7,16 +7,16 @@ using SpartaTextRPG.Interface;
 
 namespace SpartaTextRPG.Scene
 {
-    internal class MainState : State, IMenuList
+    internal class MainState : State
     {
         public MainState(StateMachine _stateMachine) : base(_stateMachine)
         {
-            totalMenuCount = 3;
+            totalMenuCount = 5;
         }
 
         public override void Enter()
         {
-            WellcomeToWorld(); // 환영 인사말
+            //TODO::
         }
 
         public override void Exit()
@@ -28,12 +28,11 @@ namespace SpartaTextRPG.Scene
         {
             while (true)
             {
+                ShowTitle();
                 ShowMenu();
                 if (!GetUserInput(out selectedMenu))
                 {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.ReadKey(true);
-                    Console.Clear();
+                    Render.NoticeText("잘못된 입력입니다.\n");
                     continue;
                 }
 
@@ -42,6 +41,9 @@ namespace SpartaTextRPG.Scene
 
             switch (selectedMenu)
             {
+                case 0:
+                    stateMachine.ChangeScene(stateMachine.MainScene);
+                    break;
                 case 1:
                     stateMachine.ChangeScene(stateMachine.MyStatScene);
                     break;
@@ -51,40 +53,27 @@ namespace SpartaTextRPG.Scene
                 case 3:
                     stateMachine.ChangeScene(stateMachine.ShopScene);
                     break;
+                case 5:
+                    stateMachine.ChangeScene(stateMachine.RestScene);
+                    break;
             }
 
         }
 
-
-        private void WellcomeToWorld()
-        {
-            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
-            Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\n");
-        }
-        public void ShowMenu(int idx = 0)
+        public override void ShowMenu(int idx = 0)
         {
             Console.WriteLine("1. 상태 보기");
             Console.WriteLine("2. 인벤 토리");
             Console.WriteLine("3. 상점");
+            Console.WriteLine("4. 던전");
+            Console.WriteLine("5. 휴식하기");
         }
 
-        public bool GetUserInput(out int value)
+        public override void ShowTitle()
         {
-            Console.WriteLine("\n원하시는 행동을 입력해주세요.");
-            Console.Write(">> ");
-            if (!int.TryParse(Console.ReadLine(), out value))
-                return false;
-
-            if (value <= 0 || value > totalMenuCount)
-                return false;
-
-            return true;
+            Render.ColorText("[스파르타의 마을]\n", ConsoleColor.Yellow);
+            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
+            Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\n");
         }
-
-        private int selectedMenu;
-        public int SelectedMenu { get => selectedMenu; private set => selectedMenu = value; } // 선택된 메뉴 번호
-
-        private int totalMenuCount;
-        public int TotalMenuCount { get => totalMenuCount; private set => totalMenuCount = value; } // 메뉴 총 갯수
     }
 }

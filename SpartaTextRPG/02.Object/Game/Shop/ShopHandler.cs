@@ -2,7 +2,7 @@
 
 namespace SpartaTextRPG._02.Object
 {
-    internal abstract class ShopHandler : ITextRenderer
+    internal abstract class ShopHandler
     {
         public ShopHandler(int x, int y)
         {
@@ -21,20 +21,20 @@ namespace SpartaTextRPG._02.Object
 
             if (target.Gold < itemGold)
             {
-                RenderText("Gold 가 부족합니다.", ConsoleColor.Red);
+                Render.ColorText("Gold 가 부족합니다.", ConsoleColor.Red);
                 Console.ReadKey(true);
                 return;
             }
 
             if (isSales.TryGetValue(equip, out isSale) && isSale)
             {
-                RenderText("이미 구매한 아이템입니다.", ConsoleColor.Blue);
+                Render.ColorText("이미 구매한 아이템입니다.", ConsoleColor.Blue);
                 Console.ReadKey(true);
                 return;
             }
 
 
-            RenderText("구매를 완료했습니다.", ConsoleColor.Blue);
+            Render.ColorText("구매를 완료했습니다.", ConsoleColor.Blue);
 
             if (isSales.ContainsKey(equip))
                 isSales[equip] = true;
@@ -58,7 +58,7 @@ namespace SpartaTextRPG._02.Object
             if (equip.IsEquipt)
                 equip.TakeOffItem(target);
 
-            RenderText("판매를 완료했습니다.", ConsoleColor.Blue);
+            Render.ColorText("판매를 완료했습니다.", ConsoleColor.Blue);
 
             if(isSales.ContainsKey(equip))
                 isSales[equip] = false;
@@ -79,14 +79,6 @@ namespace SpartaTextRPG._02.Object
                 return false;
 
             return value;
-        }
-
-
-        public void RenderText(string text, ConsoleColor color = ConsoleColor.White)
-        {
-            Console.ForegroundColor = color;
-            Console.Write(text);
-            Console.ResetColor();
         }
 
         private Inventory<IEquiptable> saleList;

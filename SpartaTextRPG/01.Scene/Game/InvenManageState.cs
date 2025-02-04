@@ -3,7 +3,7 @@ using SpartaTextRPG.Interface;
 
 namespace SpartaTextRPG._01.Scene
 {
-    internal class InvenManageState : State, IMenuList, ITextRenderer
+    internal class InvenManageState : State
     {
         public InvenManageState(StateMachine _stateMachine, Player _player) : base(_stateMachine)
         {
@@ -14,9 +14,6 @@ namespace SpartaTextRPG._01.Scene
         public override void Enter()
         {
             currentMenu = 0;
-
-            RenderText("인벤토리 - 장착 관리\n", ConsoleColor.Yellow);
-            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
         }
 
 
@@ -24,6 +21,7 @@ namespace SpartaTextRPG._01.Scene
         {
             while (true)
             {
+                ShowTitle();
                 ShowInventory(); // 현재 내가 가지고 있는 아이템을 보여드립니다.
                 ShowMenu(currentMenu); // 유저가 선택할 수 있는 메뉴를 보여드립니다.
 
@@ -71,7 +69,7 @@ namespace SpartaTextRPG._01.Scene
 
 
         #region Method
-        public void ShowMenu(int idx = 0)
+        public override void ShowMenu(int idx = 0)
         {
             nextButtonActive = false;
             prevButtonActive = false;
@@ -123,7 +121,7 @@ namespace SpartaTextRPG._01.Scene
             Console.WriteLine(); // 한줄 띄우기
         }
 
-        public bool GetUserInput(out int value)
+        public override bool GetUserInput(out int value)
         {
             Console.WriteLine("\n원하시는 행동을 입력해주세요.");
             Console.Write(">> ");
@@ -149,14 +147,14 @@ namespace SpartaTextRPG._01.Scene
             Console.Write(text);
             Console.ResetColor();
         }
+
+        public override void ShowTitle()
+        {
+            RenderText("인벤토리 - 장착 관리\n", ConsoleColor.Yellow);
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
+        }
         #endregion
         private Player player;
-
-        private int selectedMenu;
-        public int SelectedMenu { get => selectedMenu; private set => selectedMenu = value; } // 선택된 메뉴 번호
-
-        private int totalMenuCount;
-        public int TotalMenuCount { get => totalMenuCount; private set => totalMenuCount = value; } // 메뉴 총 갯수
 
         private int currentMenu;
 

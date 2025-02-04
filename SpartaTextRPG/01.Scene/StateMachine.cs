@@ -1,4 +1,5 @@
 ﻿using SpartaTextRPG._01.Scene;
+using SpartaTextRPG._01.Scene.Game;
 using SpartaTextRPG.Scene;
 
 namespace SpartaTextRPG
@@ -15,6 +16,7 @@ namespace SpartaTextRPG
             shopState = new ShopState(this, game.Player, game.ItemShop);
             shopBuyState = new ShopBuyState(this, game.Player, game.ItemShop);
             shopSaleState = new ShopSaleState(this, game.Player, game.ItemShop);
+            restState = new RestState(this, game.Player);
         }
         
         public void InitMachine(State initializeScene)
@@ -59,5 +61,8 @@ namespace SpartaTextRPG
 
         private ShopSaleState shopSaleState;
         public ShopSaleState ShopSaleState { get => shopSaleState; }
+
+        private RestState restState;
+        public RestState RestScene { get => restState; }
     }
 }

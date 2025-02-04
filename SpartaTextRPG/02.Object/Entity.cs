@@ -15,11 +15,12 @@ namespace SpartaTextRPG
     }
     internal abstract class Entity : ICharacter
     {
-        public Entity(string _name, int _level, int _health, int _defence, float _attack) 
+        public Entity(string _name, int _level, int _maxHealth, int _defence, float _attack) 
         {
             name = _name;
             level = _level;
-            health = _health;
+            maxHealth = _maxHealth;
+            health = _maxHealth;
             defence = _defence;
             attack = _attack;
         }
@@ -32,6 +33,9 @@ namespace SpartaTextRPG
         private string name;
         public string Name { get => name; set => name = value; }
 
+        private int maxHealth;
+        public int MaxHealth { get => maxHealth; }
+
         private int health;
         public int Health { get => health; 
             set
@@ -40,8 +44,8 @@ namespace SpartaTextRPG
 
                 if (health < 0)
                     health = 0;
-                else if (health > 300)
-                    health = 300;
+                else if (health > maxHealth)
+                    health = maxHealth;
             }
                 
         }
@@ -54,6 +58,8 @@ namespace SpartaTextRPG
 
         private EntityType type;
         public EntityType Type { get => type; set => type = value; }
+
+        
 
     }
 }

@@ -4,7 +4,7 @@ using SpartaTextRPG.Interface;
 
 namespace SpartaTextRPG._01.Scene
 {
-    internal class ShopSaleState : State, IMenuList, ITextRenderer
+    internal class ShopSaleState : State
     {
         public ShopSaleState(StateMachine _stateMachine, Player _player, ShopHandler _shop) : base(_stateMachine)
         {
@@ -14,8 +14,7 @@ namespace SpartaTextRPG._01.Scene
 
         public override void Enter()
         {
-            RenderText("상점 - 아이템 판매\n", ConsoleColor.Yellow);
-            Console.WriteLine("필요없는 아이템을 팔수 있는 상점입니다.\n");
+            //TODO::
         }
 
 
@@ -23,6 +22,7 @@ namespace SpartaTextRPG._01.Scene
         {
             while (true)
             {
+                ShowTitle();
                 ShowInventory(); // 현재 내가 가지고 있는 아이템을 보여드립니다.
                 ShowMenu(currentMenu); // 유저가 선택할 수 있는 메뉴를 보여드립니다.
 
@@ -64,7 +64,7 @@ namespace SpartaTextRPG._01.Scene
 
 
         #region Method
-        public void ShowMenu(int idx = 0)
+        public override void ShowMenu(int idx = 0)
         {
             nextButtonActive = false;
             prevButtonActive = false;
@@ -108,8 +108,8 @@ namespace SpartaTextRPG._01.Scene
 
                 Console.Write($"- {i % inventory.Width + 1} ");
                 Console.Write($"{item.Name}  | {item.Information}");
-                
-                RenderText($"{(int)(item.Gold * 0.85f)}\n", ConsoleColor.Yellow);
+
+                Render.ColorText($"{(int)(item.Gold * 0.85f)}\n", ConsoleColor.Yellow);
 
                 curCount++;
             }
@@ -118,7 +118,7 @@ namespace SpartaTextRPG._01.Scene
             Console.WriteLine(); // 한줄 띄우기
         }
 
-        public bool GetUserInput(out int value)
+        public override bool GetUserInput(out int value)
         {
             Console.WriteLine("\n원하시는 행동을 입력해주세요.");
             Console.Write(">> ");
@@ -138,21 +138,14 @@ namespace SpartaTextRPG._01.Scene
             return true;
         }
 
-        public void RenderText(string text, ConsoleColor color = ConsoleColor.White)
+        public override void ShowTitle()
         {
-            Console.ForegroundColor = color;
-            Console.Write(text);
-            Console.ResetColor();
+            Render.ColorText("상점 - 아이템 판매\n", ConsoleColor.Yellow);
+            Console.WriteLine("필요없는 아이템을 팔수 있는 상점입니다.\n");
         }
         #endregion
         private Player player;
         private ShopHandler shop;
-
-        private int selectedMenu;
-        public int SelectedMenu { get => selectedMenu; private set => selectedMenu = value; } // 선택된 메뉴 번호
-
-        private int totalMenuCount;
-        public int TotalMenuCount { get => totalMenuCount; private set => totalMenuCount = value; } // 메뉴 총 갯수
 
         private int currentMenu;
 
