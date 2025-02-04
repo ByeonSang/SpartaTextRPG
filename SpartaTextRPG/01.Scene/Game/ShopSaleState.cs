@@ -4,9 +4,9 @@ using SpartaTextRPG.Interface;
 
 namespace SpartaTextRPG._01.Scene
 {
-    internal class ShopBuyState : State, IMenuList, ITextRenderer
+    internal class ShopSaleState : State, IMenuList, ITextRenderer
     {
-        public ShopBuyState(StateMachine _stateMachine, Player _player, ShopHandler _shop) : base(_stateMachine)
+        public ShopSaleState(StateMachine _stateMachine, Player _player, ShopHandler _shop) : base(_stateMachine)
         {
             player = _player;
             shop = _shop;
@@ -14,8 +14,6 @@ namespace SpartaTextRPG._01.Scene
 
         public override void Enter()
         {
-            currentMenu = 0;
-
             RenderText("상점 - 아이템 구매\n", ConsoleColor.Yellow);
             Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.\n");
         }
@@ -44,8 +42,8 @@ namespace SpartaTextRPG._01.Scene
                 else if (selectedMenu == 0) break;
                 else
                 {
-                    int index = (currentMenu * shop.SaleList.Width + selectedMenu) - 1; // 현재 가리키는 아이템 인덱스
-                    shop.AddInventory(player, shop.SaleList.GetItems()[index]);
+                    int index = (currentMenu * shop.SoldList.Width + selectedMenu) - 1; // 현재 가리키는 아이템 인덱스
+                    shop.RemoveInventory(player, shop.SoldList.GetItems()[index]);
                 }
 
                 Console.Clear();
@@ -71,9 +69,10 @@ namespace SpartaTextRPG._01.Scene
             nextButtonActive = false;
             prevButtonActive = false;
 
-            int totalItem = shop.SaleList.GetItems().Count;
+            int x = shop.SaleList.Width;
+            int totalItem = shop.SoldList.GetItems().Count;
 
-            if (shop.SaleList.Width * (currentMenu + 1) < totalItem) // 가로넓이 만큼 리스트가 출력하는데 그 이후에도 아이템을 가지고 있으면 다음 버튼 생성
+            if (x * (currentMenu + 1) < totalItem) // 가로넓이 만큼 리스트가 출력하는데 그 이후에도 아이템을 가지고 있으면 다음 버튼 생성
             {
                 Console.WriteLine("8. 다음");
                 nextButtonActive = true;
@@ -91,8 +90,8 @@ namespace SpartaTextRPG._01.Scene
         private void ShowInventory()
         {
 
-            Inventory<IEquiptable> inventory = shop.SaleList;
-            List<IEquiptable> items = shop.SaleList.GetItems();
+            Inventory<IEquiptable> inventory = shop.SoldList;
+            List<IEquiptable> items = inventory.GetItems();
 
             Console.WriteLine("[아이템 목록]\n");
 
@@ -110,8 +109,7 @@ namespace SpartaTextRPG._01.Scene
                 Console.Write($"- {i % inventory.Width + 1} ");
                 Console.Write($"{item.Name}  | {item.Information}");
                 
-                string str = (shop.IsSale(items[i]) == false) ? $"{item.Gold} G\n" : "구매완료\n";
-                RenderText(str, ConsoleColor.Yellow);
+                RenderText($"{(int)(item.Gold * 0.85f)}\n", ConsoleColor.Yellow);
 
                 curCount++;
             }

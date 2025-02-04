@@ -14,6 +14,7 @@ namespace SpartaTextRPG
             invenManageState = new InvenManageState(this, game.Player);
             shopState = new ShopState(this, game.Player, game.ItemShop);
             shopBuyState = new ShopBuyState(this, game.Player, game.ItemShop);
+            shopSaleState = new ShopSaleState(this, game.Player, game.ItemShop);
         }
         
         public void InitMachine(State initializeScene)
@@ -55,5 +56,8 @@ namespace SpartaTextRPG
 
         private ShopBuyState shopBuyState;
         public ShopBuyState ShopBuyState { get => shopBuyState; }
+
+        private ShopSaleState shopSaleState;
+        public ShopSaleState ShopSaleState { get => shopSaleState; }
     }
 }

@@ -12,7 +12,6 @@ namespace SpartaTextRPG._01.Scene
         {
             player = _player;
             shop = _shop;
-            totalMenuCount = 2;
         }
 
         public override void Enter()
@@ -48,6 +47,9 @@ namespace SpartaTextRPG._01.Scene
                 case 1:
                     stateMachine.ChangeScene(stateMachine.ShopBuyState);
                     break;
+                case 2:
+                    stateMachine.ChangeScene(stateMachine.ShopSaleState);
+                    break;
             }
         }
 
@@ -58,7 +60,9 @@ namespace SpartaTextRPG._01.Scene
 
         public void ShowMenu(int idx = 0)
         {
+            totalMenuCount = 3;
             Console.WriteLine("1. 아이템 구매");
+            Console.WriteLine("2. 아이템 판매");
             Console.WriteLine("0. 나가기");
         }
 
@@ -76,7 +80,7 @@ namespace SpartaTextRPG._01.Scene
                 
                 Console.Write($"{item.Name}  | {item.Information} | ");
 
-                string str = (shop.IsSales[i] == false) ? $"{item.Gold} G\n" : "구매완료\n";
+                string str = (shop.IsSale(items[i]) == false) ? $"{item.Gold} G\n" : "구매완료\n";
                 RenderText(str, ConsoleColor.Yellow);
             }
 
