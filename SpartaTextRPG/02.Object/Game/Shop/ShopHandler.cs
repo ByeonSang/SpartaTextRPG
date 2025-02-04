@@ -67,6 +67,8 @@ namespace SpartaTextRPG._02.Object
             soldList.RemoveItem(equip);
 
             target.Gold += itemGold;
+
+            Console.ReadKey(true); // 대기 상태
         }
 
         public bool IsSale(IEquiptable equipt)

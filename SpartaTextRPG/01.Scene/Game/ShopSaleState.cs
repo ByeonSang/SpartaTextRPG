@@ -14,8 +14,8 @@ namespace SpartaTextRPG._01.Scene
 
         public override void Enter()
         {
-            RenderText("상점 - 아이템 구매\n", ConsoleColor.Yellow);
-            Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.\n");
+            RenderText("상점 - 아이템 판매\n", ConsoleColor.Yellow);
+            Console.WriteLine("필요없는 아이템을 팔수 있는 상점입니다.\n");
         }
 
 
