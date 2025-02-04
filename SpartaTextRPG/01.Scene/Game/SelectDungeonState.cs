@@ -15,14 +15,13 @@ namespace SpartaTextRPG._01.Scene.Game
         {
             player = _player;
             dungeons = _dungeons;
-
-            curPageMaxCount = 3; // 현재 페이지에서 최대로 볼 수 있는 메뉴
         }
 
         public override void Enter()
         {
             //TODO::
             currentPage = 0;
+            currentPageMaxCount = 3;
         }
 
         public override void Exit()
@@ -37,7 +36,7 @@ namespace SpartaTextRPG._01.Scene.Game
 
             int totalDungeon = dungeons.Count;
 
-            if (curPageMaxCount * (currentPage + 1) < totalDungeon) // 가로넓이 만큼 리스트가 출력하는데 그 이후에도 아이템을 가지고 있으면 다음 버튼 생성
+            if (currentPageMaxCount * (currentPage + 1) < totalDungeon) // 가로넓이 만큼 리스트가 출력하는데 그 이후에도 아이템을 가지고 있으면 다음 버튼 생성
             {
                 Console.WriteLine("8. 다음");
                 nextButtonActive = true;
@@ -63,7 +62,7 @@ namespace SpartaTextRPG._01.Scene.Game
             while (true) 
             {
                 ShowTitle();
-                ShowDungeons(); // 현재 내가 가지고 있는 아이템을 보여드립니다.
+                ShowSelectList<Dungeon>(dungeons, "던전 목록");
                 ShowMenu(currentPage); // 유저가 선택할 수 있는 메뉴를 보여드립니다.
 
                 // 유저가 올바르게 입력했는지 여부를 묻습니다.
@@ -84,38 +83,14 @@ namespace SpartaTextRPG._01.Scene.Game
                 }
                 else
                 {
-                    int index = (currentPage * curPageMaxCount + selectedMenu) - 1; // 현재 가리키는 아이템 인덱스
-                    Dungeon dungeon = dungeons[index];
+                    int index = (currentPage * currentPageMaxCount + selectedMenu) - 1; // 현재 가리키는 아이템 인덱스
+                    // index를 ChangeScene메서드 호출할때 넣어주기 << 해결해야됨
                     //stateMachine.ChangeScene(stateMachine.DungeonDifiicaly);
                     break;
                 }
 
                 Console.Clear();
             }
-        }
-
-        private void ShowDungeons()
-        {
-            Console.WriteLine("[던전 목록]\n");
-
-            int startIndex = curPageMaxCount * currentPage;
-            int endIndex = startIndex + curPageMaxCount;
-
-            int curCount = 0;
-            for (int i = startIndex; i < endIndex; i++)
-            {
-                if (i >= dungeons.Count)
-                    break;
-
-                Console.Write($"- {i % curPageMaxCount + 1} ");
-
-                Dungeon dungeon = dungeons[i];
-                Console.WriteLine($"{dungeon.Name}  | {dungeon.Level}");
-                curCount++;
-            }
-
-            totalMenuCount = curCount;
-            Console.WriteLine(); // 한줄 띄우기
         }
 
         public override bool GetUserInput(out int value)
@@ -138,11 +113,21 @@ namespace SpartaTextRPG._01.Scene.Game
             return true;
         }
 
+        public override void SetMenuString(object gameObject)
+        {
+            try
+            {
+                Dungeon dungeon = (Dungeon)gameObject;
+                Console.WriteLine($"{dungeon.Name}  | Level : {dungeon.Level}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
         private Player player;
         private List<Dungeon> dungeons;
-
-        private int currentPage;
-        private int curPageMaxCount;
 
         private bool nextButtonActive;
         private bool prevButtonActive;
