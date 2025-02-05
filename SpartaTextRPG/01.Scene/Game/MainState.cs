@@ -70,7 +70,8 @@ namespace SpartaTextRPG.Scene
             Console.WriteLine("2. 인벤 토리");
             Console.WriteLine("3. 상점");
             Console.WriteLine("4. 던전");
-            Console.WriteLine("5. 휴식하기");
+            Console.WriteLine("5. 휴식하기\n");
+            Console.WriteLine("0. 저장하고 종료");
         }
 
         public override void ShowTitle()

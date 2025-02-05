@@ -30,6 +30,10 @@ namespace SpartaTextRPG._04.Data
                     Console.WriteLine("세이브 파일 생성");
                 }
             }
+            else
+            {
+                ReadJson();
+            }
         }
 
         public void WriteJson()
@@ -38,6 +42,39 @@ namespace SpartaTextRPG._04.Data
             if (File.Exists(path))
             {
                 InputPlayer();
+            }
+        }
+
+        private void ReadJson()
+        {
+            try
+            {
+                // Json 파일 읽기
+                using (StreamReader file = File.OpenText(Path))
+                using (JsonTextReader reader = new JsonTextReader(file))
+                {
+                    int playerType = 0;
+                    JObject json = (JObject)JToken.ReadFrom(reader);
+
+                    var playerInfo = json.SelectToken("PLAYER");
+                    var cnt = playerInfo.Count();
+
+                    player.Name = (string)playerInfo["NAME"];
+                    player.Level = (int)playerInfo["LEVEL"];
+                    player.Health = (int)playerInfo["HEALTH"];
+                    player.Defence = (int)playerInfo["DEFENCE"];
+                    player.Attack = (float)playerInfo["ATTACK"];
+                    player.Gold = (int)playerInfo["GOLD"];
+                    playerType = (int)playerInfo["JOBTYPE"];
+                    player.Exp = (int)playerInfo["EXP"];
+
+                    player.Type = (EntityType)playerType;
+                }
+            }
+            catch (Exception)
+            {
+                File.Delete(Path);
+                CreateFile();
             }
         }
 

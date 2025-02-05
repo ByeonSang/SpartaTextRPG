@@ -42,7 +42,7 @@ namespace SpartaTextRPG
                 Level++;
                 Attack += 0.5f;
                 Defence += 1;
-                Render.NoticeText($"레벨업! ({Level - 1} => {Level})", false, ConsoleColor.Yellow);
+                Render.NoticeText($"레벨업! ({Level - 1} => {Level})\n", false, ConsoleColor.Yellow);
             }
         }
 
@@ -52,7 +52,6 @@ namespace SpartaTextRPG
             if(Health <= 0)
             {
                 isDead = true;
-                return;
             }
         }
 

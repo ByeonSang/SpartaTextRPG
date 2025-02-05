@@ -50,36 +50,34 @@ namespace SpartaTextRPG._01.Scene.Game
 
             Thread.Sleep(1000);
 
-            CheckDefence();
-            CheckClear();
+            if(!CheckDefence())
+                CheckClear();
 
             while(!ExitDungeon());
             stateMachine.ChangeScene(stateMachine.MainScene);
         }
 
-        void CheckDefence()
+        bool CheckDefence()
         {
             int dungeonDef = dungeon.RecommendDefence[idx];
 
             if(player.Defence < dungeonDef)
             {
                 int rand = new Random().Next(1, 11);
-                if(rand < 5)
+                
+                // 소탕실패
+                if(rand < 4)
                 {
-                    Render.ColorText("소탕실패!!!", ConsoleColor.Red);
                     player.TakeDamage(player.Health / 2);
 
                     // 플레이어가 사망할시 저장되었던 데이터들은 날라가고, 게임종료
-                    if(player.IsDead)
-                    {
-                        File.Delete(stateMachine.GameInfo.Data.Path);
-                        Environment.Exit(0);
-                    }
-
-                    stateMachine.ChangeScene(stateMachine.MainScene);
-                    return;
+                    if (!CheckPlayerDead()) // 사망이 아닐때
+                        Render.ColorText("소탕실패!!!\n", ConsoleColor.Red);
+                    return true;
                 }
             }
+
+            return false;
         }
         void CheckClear()
         {
@@ -96,16 +94,20 @@ namespace SpartaTextRPG._01.Scene.Game
             int baseGold = dungeon.ClearGold[idx];
             int plusGold = (int)(baseGold * rand);
 
+            // 우선 클리어하기 전에 체력확인
             player.TakeDamage(damage);
-            Console.Clear();
-            Render.ColorText("던전 클리어!!!\n축하합니다.\n", ConsoleColor.Yellow);
+            CheckPlayerDead();            
+            Console.WriteLine($"{damage} 만큼 피해를 입었습니다.\n");
+
+
+            Render.ColorText("던전 클리어!!!\n", ConsoleColor.Yellow);
             Console.Write("기본 보상 : "); Render.ColorText($"{baseGold} G\n", ConsoleColor.Yellow);
             Console.Write("추가 보상 : "); Render.ColorText($"{plusGold} G\n", ConsoleColor.Yellow);
             player.Gold += baseGold + plusGold;
 
             //클리어시 받는 경험치량
             int clearExp = dungeon.ClearExp[idx];
-            Console.Write("클리어 경험치 : "); Render.ColorText($"{clearExp} G\n", ConsoleColor.Yellow);
+            Console.Write("클리어 경험치 : "); Render.ColorText($"{clearExp}\n", ConsoleColor.Yellow);
             player.Exp += clearExp;
             player.CheckLevelUp();
         }
@@ -116,6 +118,19 @@ namespace SpartaTextRPG._01.Scene.Game
             ConsoleKeyInfo info = Console.ReadKey(true);
             if (info.Key == ConsoleKey.Enter)
                 return true;
+
+            return false;
+        }
+
+        bool CheckPlayerDead()
+        {
+            if (player.IsDead)
+            {
+                Render.ColorText("소탕실패!!!\n", ConsoleColor.Red);
+                File.Delete(stateMachine.GameInfo.Data.Path);
+                stateMachine.GameInfo.GameExit($"HP : {player.Health} _ _ _ 세이브 파일은 삭제됩니다...");
+                return true;
+            }
 
             return false;
         }
