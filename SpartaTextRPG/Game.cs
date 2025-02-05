@@ -17,11 +17,6 @@ namespace SpartaTextRPG
             itemShop = new StartPointShop(3,3);
             dungeons = new List<Dungeon>();
             dungeons.Add(new TrainningRoom(player));
-            dungeons.Add(new TrainningRoom(player));
-            dungeons.Add(new TrainningRoom(player));
-            dungeons.Add(new TrainningRoom(player));
-            dungeons.Add(new TrainningRoom(player));
-            dungeons.Add(new TrainningRoom(player));
 
             stateMachine = new StateMachine(this); // 위에 먼저 초기화 해주고 stateMachine 초기화
         }
