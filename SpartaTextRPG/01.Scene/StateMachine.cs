@@ -19,6 +19,7 @@ namespace SpartaTextRPG
             restState = new RestState(this, game.Player);
             selectDungeonState = new SelectDungeonState(this, game.Player, game.Dungeons);
             selectDifficultyState = new SelectDifficultyState(this, game.Dungeons);
+            battleState = new BattleState(this, game.Player);
         }
         
         public void InitMachine(State initializeScene)
@@ -73,5 +74,8 @@ namespace SpartaTextRPG
 
         private SelectDifficultyState selectDifficultyState;
         public SelectDifficultyState DifficultyScene { get => selectDifficultyState; }
+
+        private BattleState battleState;
+        public BattleState BattleScene { get => battleState; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SpartaTextRPG._03.Dungeon;
+﻿using Microsoft.VisualBasic;
+using SpartaTextRPG._03.Dungeon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,18 @@ namespace SpartaTextRPG._01.Scene.Game
         public SelectDifficultyState(StateMachine _stateMachine, List<Dungeon> _dungeons) : base(_stateMachine)
         {
             dungeons = _dungeons;
-            dungeon = null;
         }
 
         public override void Enter(object? Object)
         {
             try
             {
+                if (Object == null || Object.GetType() != typeof(int))
+                {
+                    Console.WriteLine($"현재 SelectDifficultyState.Enter(object? Object)부분에서 Null값을 받아왔습니다.");
+                    Environment.Exit(0);
+                }
+
                 int idx = (int)Object;
                 if (idx >= 0 && idx < dungeons.Count)
                     dungeon = dungeons[idx];
@@ -42,6 +48,12 @@ namespace SpartaTextRPG._01.Scene.Game
 
         public override void Update()
         {
+            if (dungeon == null)
+            {
+                Environment.Exit(0);
+                return;
+            }
+
             while (true)
             {
                 ShowTitle();
@@ -60,6 +72,9 @@ namespace SpartaTextRPG._01.Scene.Game
                 case 0:
                     stateMachine.ChangeScene(stateMachine.SelctDungeonScene);
                     break;
+                default:
+                    stateMachine.ChangeScene(stateMachine.BattleScene, new KeyValuePair<Dungeon, int>(dungeon, selectedMenu - 1));
+                    break;
             }
         }
 
@@ -73,6 +88,6 @@ namespace SpartaTextRPG._01.Scene.Game
         }
 
         private List<Dungeon> dungeons;
-        private Dungeon? dungeon;
+        private Dungeon dungeon;
     }
 }

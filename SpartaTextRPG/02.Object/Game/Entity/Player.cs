@@ -37,6 +37,12 @@ namespace SpartaTextRPG
         public override void TakeDamage(int _damage)
         {
             Health -= _damage;
+            if(Health <= 0)
+            {
+                Render.ColorText("플레이어는 체력이 없어서 게임을 더이상 진행이 불가능합니다.\n", ConsoleColor.Red);
+                Environment.Exit(0);
+                return;
+            }
         }
 
         // 장비 인벤토리
