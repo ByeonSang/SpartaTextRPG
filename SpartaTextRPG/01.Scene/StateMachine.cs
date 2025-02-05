@@ -18,6 +18,7 @@ namespace SpartaTextRPG
             shopSaleState = new ShopSaleState(this, game.Player, game.ItemShop);
             restState = new RestState(this, game.Player);
             selectDungeonState = new SelectDungeonState(this, game.Player, game.Dungeons);
+            selectDifficultyState = new SelectDifficultyState(this, game.Dungeons);
         }
         
         public void InitMachine(State initializeScene)
@@ -31,13 +32,13 @@ namespace SpartaTextRPG
         /// </summary>
         /// <param name="nextState"></param>
         /// <param name="idx">바꿀 Enter에 index 수신</param>
-        public void ChangeScene(State nextState, int idx = -1)
+        public void ChangeScene(State nextState, object? Object = null)
         {
             if (currentState != null)
                 currentState.Exit();
 
             currentState = nextState;
-            nextState.Enter();
+            nextState.Enter(Object);
         }
 
         private State currentState;
@@ -69,5 +70,8 @@ namespace SpartaTextRPG
 
         private SelectDungeonState selectDungeonState;
         public SelectDungeonState SelctDungeonScene { get => selectDungeonState; }
+
+        private SelectDifficultyState selectDifficultyState;
+        public SelectDifficultyState DifficultyScene { get => selectDifficultyState; }
     }
 }

@@ -17,7 +17,7 @@ namespace SpartaTextRPG._01.Scene.Game
             dungeons = _dungeons;
         }
 
-        public override void Enter()
+        public override void Enter(object? Object)
         {
             //TODO::
             currentPage = 0;
@@ -62,8 +62,7 @@ namespace SpartaTextRPG._01.Scene.Game
                 else
                 {
                     int index = (currentPage * currentPageMaxCount + selectedMenu) - 1; // 현재 가리키는 아이템 인덱스
-                    // index를 ChangeScene메서드 호출할때 넣어주기 << 해결해야됨
-                    //stateMachine.ChangeScene(stateMachine.DungeonDifiicaly);
+                    stateMachine.ChangeScene(stateMachine.DifficultyScene, (object?)index);
                     break;
                 }
 

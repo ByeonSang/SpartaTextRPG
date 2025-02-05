@@ -14,7 +14,7 @@ namespace SpartaTextRPG._01.Scene
             currentPageMaxCount = 3;
         }
 
-        public override void Enter()
+        public override void Enter(object? Object)
         {
             //TODO::
             currentPage = 0;

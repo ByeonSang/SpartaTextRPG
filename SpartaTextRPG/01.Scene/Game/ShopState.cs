@@ -14,7 +14,7 @@ namespace SpartaTextRPG._01.Scene
             shop = _shop;
         }
 
-        public override void Enter()
+        public override void Enter(object? Object)
         {
             // TODO::
         }

@@ -11,7 +11,7 @@ namespace SpartaTextRPG._01.Scene
             player = _player;
         }
 
-        public override void Enter()
+        public override void Enter(object? Object)
         {
             // TODO::
         }

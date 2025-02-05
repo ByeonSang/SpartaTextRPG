@@ -28,7 +28,7 @@ namespace SpartaTextRPG
             return true;
         }
 
-        public abstract void Enter();
+        public abstract void Enter(object? Object = null);
         public abstract void Update();
         public abstract void Exit();
 

@@ -16,7 +16,7 @@ namespace SpartaTextRPG._01.Scene.Game
             totalMenuCount = 1;
         }
 
-        public override void Enter()
+        public override void Enter(object? Object)
         {
             // TODO::
         }
