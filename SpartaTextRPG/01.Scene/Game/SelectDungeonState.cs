@@ -29,28 +29,6 @@ namespace SpartaTextRPG._01.Scene.Game
             Console.Clear();
         }
 
-        public override void ShowMenu(int idx = 0)
-        {
-            nextButtonActive = false;
-            prevButtonActive = false;
-
-            int totalDungeon = dungeons.Count;
-
-            if (currentPageMaxCount * (currentPage + 1) < totalDungeon) // 가로넓이 만큼 리스트가 출력하는데 그 이후에도 아이템을 가지고 있으면 다음 버튼 생성
-            {
-                Console.WriteLine("8. 다음");
-                nextButtonActive = true;
-            }
-
-            if (idx > 0) // 현재 페이지가 0이 아니면 뒤로가기 버튼 생성
-            {
-                Console.WriteLine("9. 뒤로");
-                prevButtonActive = true;
-            }
-
-            Console.WriteLine("0. 나가기");
-        }
-
         public override void ShowTitle()
         {
             Render.ColorText("[던전입구]\n", ConsoleColor.Green);
@@ -63,7 +41,7 @@ namespace SpartaTextRPG._01.Scene.Game
             {
                 ShowTitle();
                 ShowSelectList<Dungeon>(dungeons, "던전 목록");
-                ShowMenu(currentPage); // 유저가 선택할 수 있는 메뉴를 보여드립니다.
+                ShowMenu<Dungeon>(dungeons); // 유저가 선택할 수 있는 메뉴를 보여드립니다.
 
                 // 유저가 올바르게 입력했는지 여부를 묻습니다.
                 #region userInput
@@ -128,8 +106,5 @@ namespace SpartaTextRPG._01.Scene.Game
 
         private Player player;
         private List<Dungeon> dungeons;
-
-        private bool nextButtonActive;
-        private bool prevButtonActive;
     }
 }

@@ -63,8 +63,9 @@ namespace SpartaTextRPG.Scene
 
         }
 
-        public override void ShowMenu(int idx = 0)
+        public override void ShowMenu()
         {
+            totalMenuCount = 6; // 나가기 포함
             Console.WriteLine("1. 상태 보기");
             Console.WriteLine("2. 인벤 토리");
             Console.WriteLine("3. 상점");

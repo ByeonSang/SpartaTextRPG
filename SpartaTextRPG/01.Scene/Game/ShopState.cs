@@ -58,7 +58,7 @@ namespace SpartaTextRPG._01.Scene
             Console.Clear();
         }
 
-        public override void ShowMenu(int idx = 0)
+        public override void ShowMenu()
         {
             totalMenuCount = 3;
             Console.WriteLine("1. 아이템 구매");

@@ -12,7 +12,6 @@ namespace SpartaTextRPG.Scene
         public StatInfoState(StateMachine _stateMachine, Player _player) : base(_stateMachine)
         {
             player = _player;
-            totalMenuCount = 1;
         }
 
         public override void Enter()
@@ -70,11 +69,6 @@ namespace SpartaTextRPG.Scene
             }
 
             stateMachine.ChangeScene(stateMachine.MainScene);
-        }
-
-        public override void ShowMenu(int idx = 0)
-        {
-            Console.WriteLine("0. 나가기");
         }
 
         public override bool GetUserInput(out int value)

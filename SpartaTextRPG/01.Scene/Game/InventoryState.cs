@@ -9,7 +9,6 @@ namespace SpartaTextRPG._01.Scene
         public InventoryState(StateMachine _stateMachine, Player _player) : base(_stateMachine)
         {
             player = _player;
-            totalMenuCount = 1;
         }
 
         public override void Enter()
@@ -53,8 +52,9 @@ namespace SpartaTextRPG._01.Scene
             Console.Clear();
         }
 
-        public override void ShowMenu(int idx = 0)
+        public override void ShowMenu()
         {
+            totalMenuCount = 2;
             Console.WriteLine("1. 장착 관리");
             Console.WriteLine("0. 나가기");
         }

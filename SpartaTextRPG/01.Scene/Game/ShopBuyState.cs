@@ -26,7 +26,7 @@ namespace SpartaTextRPG._01.Scene
             {
                 ShowTitle();
                 ShowSelectList<IEquiptable>(shop.SaleList.GetItems(), "아이템 목록");
-                ShowMenu(currentPage); // 유저가 선택할 수 있는 메뉴를 보여드립니다.
+                ShowMenu<IEquiptable>(shop.SaleList.GetItems()); // 유저가 선택할 수 있는 메뉴를 보여드립니다.
 
                 // 유저가 올바르게 입력했는지 여부를 묻습니다.
                 #region userInput
@@ -62,30 +62,6 @@ namespace SpartaTextRPG._01.Scene
         public override void Exit()
         {
             Console.Clear();
-        }
-
-
-        #region Method
-        public override void ShowMenu(int idx = 0)
-        {
-            nextButtonActive = false;
-            prevButtonActive = false;
-
-            int totalItem = shop.SaleList.GetItems().Count;
-
-            if (currentPageMaxCount * (currentPage + 1) < totalItem) // 가로넓이 만큼 리스트가 출력하는데 그 이후에도 아이템을 가지고 있으면 다음 버튼 생성
-            {
-                Console.WriteLine("8. 다음");
-                nextButtonActive = true;
-            }
-
-            if (idx > 0) // 현재 페이지가 0이 아니면 뒤로가기 버튼 생성
-            {
-                Console.WriteLine("9. 뒤로");
-                prevButtonActive = true;
-            }
-
-            Console.WriteLine("0. 나가기");
         }
 
         public override bool GetUserInput(out int value)
@@ -131,11 +107,7 @@ namespace SpartaTextRPG._01.Scene
             }
         }
 
-        #endregion
         private Player player;
         private ShopHandler shop;
-
-        private bool nextButtonActive;
-        private bool prevButtonActive;
     }
 }

@@ -64,8 +64,9 @@ namespace SpartaTextRPG._01.Scene.Game
                 stateMachine.ChangeScene(stateMachine.MainScene);
         }
 
-        public override void ShowMenu(int idx = 0)
+        public override void ShowMenu()
         {
+            totalMenuCount = 2;
             Console.WriteLine("1. 휴식하기");
             Console.WriteLine("0. 나가기");
         }
