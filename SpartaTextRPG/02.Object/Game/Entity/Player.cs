@@ -1,4 +1,5 @@
 ﻿using SpartaTextRPG._02.Object;
+using SpartaTextRPG._04.Data;
 using SpartaTextRPG.Interface;
 
 namespace SpartaTextRPG
@@ -27,11 +28,22 @@ namespace SpartaTextRPG
             equipting.Add(ItemType.Weapon, null);
         }
 
-        public void AddLevel()
+        public void CheckLevelUp()
         {
-            Level++;
-            Attack += 0.5f;
-            Defence += 1;
+            int[] exp = AmountExp.amount;
+
+            if (Level >= exp.Length)
+                return;
+
+            while(Exp >= exp[Level - 1] && Level < exp.Length)
+            {
+                Exp -= exp[Level - 1]; // 순서 중요
+
+                Level++;
+                Attack += 0.5f;
+                Defence += 1;
+                Render.NoticeText($"레벨업! ({Level - 1} => {Level})", false, ConsoleColor.Yellow);
+            }
         }
 
         public override void TakeDamage(int _damage)
@@ -39,8 +51,7 @@ namespace SpartaTextRPG
             Health -= _damage;
             if(Health <= 0)
             {
-                Render.ColorText("플레이어는 체력이 없어서 게임을 더이상 진행이 불가능합니다.\n", ConsoleColor.Red);
-                Environment.Exit(0);
+                isDead = true;
                 return;
             }
         }

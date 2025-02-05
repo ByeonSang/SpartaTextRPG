@@ -20,7 +20,7 @@ namespace SpartaTextRPG._03.Dungeon.Game
         {
             InitDefence(5, 11, 17);
             InitClearGold(1000, 1700, 2500);
-            InitClearExp(100, 150, 250);
+            InitClearExp(1000, 1500, 2500);
 
             KeyValuePair<int, int> easy = new KeyValuePair<int, int>(20, 35);
             KeyValuePair<int, int> normal = new KeyValuePair<int, int>(24, 39);

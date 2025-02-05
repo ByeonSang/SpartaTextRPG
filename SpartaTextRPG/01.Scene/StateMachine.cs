@@ -8,6 +8,7 @@ namespace SpartaTextRPG
     {
         public StateMachine(Game game)
         {
+            this.game = game;
             currentState = MainScene;
             mainState = new MainState(this);
             statInfoState = new StatInfoState(this, game.Player);
@@ -41,6 +42,9 @@ namespace SpartaTextRPG
             currentState = nextState;
             nextState.Enter(Object);
         }
+
+        private Game game;
+        public Game GameInfo { get => game; }
 
         private State currentState;
         public State CurrentScene { get => currentState; private set => currentState = value; }

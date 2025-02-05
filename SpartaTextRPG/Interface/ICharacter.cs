@@ -13,5 +13,7 @@ namespace SpartaTextRPG.Interface
         public int Health { get; set; }
         public int Defence { get; set; }
         public float Attack { get; set; }
+
+        public bool IsDead { get; }
     }
 }

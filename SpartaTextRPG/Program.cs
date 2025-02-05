@@ -1,5 +1,7 @@
 ﻿using static System.Net.Mime.MediaTypeNames;
 using System.Drawing;
+using Newtonsoft.Json;
+using SpartaTextRPG._04.Data; // NuGet패키지에서 Newtonsoft.Json 최신버전 다운
 
 namespace SpartaTextRPG
 {
@@ -26,6 +28,7 @@ namespace SpartaTextRPG
         static void Main(string[] args)
         {
             Game game = new Game();
+            AmountExp.Initialize();
             game.GameStart();
         }
     }

@@ -3,6 +3,7 @@ using SpartaTextRPG._02.Object.Game;
 using SpartaTextRPG._02.Object.Game.Shop;
 using SpartaTextRPG._03.Dungeon;
 using SpartaTextRPG._03.Dungeon.Game;
+using SpartaTextRPG._04.Data;
 
 
 namespace SpartaTextRPG
@@ -13,11 +14,11 @@ namespace SpartaTextRPG
 
         public Game()
         {
-            player = new Player("user", 1, 100, 10, 12, 10000, JobType.WARRIOR);
+            player = new Player("user", 1, 100, 10, 12, 100, JobType.WARRIOR);
+            data = new InitializeData(player);
             itemShop = new StartPointShop(3,3);
             dungeons = new List<Dungeon>();
             dungeons.Add(new TrainningRoom(player));
-
             stateMachine = new StateMachine(this); // 위에 먼저 초기화 해주고 stateMachine 초기화
         }
 
@@ -32,6 +33,16 @@ namespace SpartaTextRPG
                 stateMachine.CurrentScene.Update();
             }
         }
+
+        public void GameExit(string str)
+        {
+            Console.WriteLine(str);
+            Data.WriteJson();
+            Environment.Exit(0);
+        }
+
+        private InitializeData data;
+        public InitializeData Data { get => data; }
 
         private StateMachine stateMachine;
         

@@ -42,7 +42,7 @@ namespace SpartaTextRPG.Scene
             switch (selectedMenu)
             {
                 case 0:
-                    stateMachine.ChangeScene(stateMachine.MainScene);
+                    stateMachine.GameInfo.GameExit("게임 종료");
                     break;
                 case 1:
                     stateMachine.ChangeScene(stateMachine.MyStatScene);

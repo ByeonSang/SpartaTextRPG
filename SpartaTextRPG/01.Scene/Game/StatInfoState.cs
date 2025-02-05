@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SpartaTextRPG._04.Data;
 using SpartaTextRPG.Interface;
 
 namespace SpartaTextRPG.Scene
@@ -53,7 +54,8 @@ namespace SpartaTextRPG.Scene
                 Console.WriteLine($"공격력 : {player.Attack}");
                 Console.WriteLine($"방어력 : {player.Defence}");
                 Console.WriteLine($"체 력 : {player.Health}");
-                Console.WriteLine($"Gold : {player.Gold}\n");
+                Console.WriteLine($"Gold : {player.Gold}");
+                Console.WriteLine($"경험치 : {player.Exp} (다음 레벨까지 남은 경험치 : {AmountExp.amount[player.Level - 1] - player.Exp})\n");
 
                 ShowMenu();
 

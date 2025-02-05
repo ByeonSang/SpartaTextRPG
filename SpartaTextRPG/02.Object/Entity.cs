@@ -23,20 +23,21 @@ namespace SpartaTextRPG
             health = _maxHealth;
             defence = _defence;
             attack = _attack;
+            isDead = false;
         }
 
         public abstract void TakeDamage(int _damage);
 
-        private int level;
+        protected int level;
         public int Level { get => level; set => level = value; }
 
-        private string name;
+        protected string name;
         public string Name { get => name; set => name = value; }
 
-        private int maxHealth;
+        protected int maxHealth;
         public int MaxHealth { get => maxHealth; }
 
-        private int health;
+        protected int health;
         public int Health { get => health; 
             set
             {
@@ -50,16 +51,16 @@ namespace SpartaTextRPG
                 
         }
 
-        private int defence;
+        protected int defence;
         public int Defence { get => defence; set => defence = value; }
 
-        private float attack;
+        protected float attack;
         public float Attack { get => attack; set => attack = value; }
 
-        private EntityType type;
+        protected EntityType type;
         public EntityType Type { get => type; set => type = value; }
 
-        
-
+        protected bool isDead;
+        public bool IsDead { get => isDead;}
     }
 }

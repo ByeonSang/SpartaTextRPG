@@ -20,9 +20,7 @@ namespace SpartaTextRPG._01.Scene.Game
             {
                 if (Object == null || Object.GetType() != typeof(KeyValuePair<Dungeon, int>))
                 {
-                    Console.WriteLine(Object.GetType());
-                    Console.WriteLine($"현재 BattleState.Enter(object? Object)부분에서 Null값을 받아왔습니다.");
-                    Environment.Exit(0);
+                    stateMachine.GameInfo.GameExit("현재 BattleState.Enter(object? Object)부분에서 Null값을 받아왔습니다.");
                 }
 
                 KeyValuePair<Dungeon, int> pair = (KeyValuePair<Dungeon, int>)Object;
@@ -70,6 +68,14 @@ namespace SpartaTextRPG._01.Scene.Game
                 {
                     Render.ColorText("소탕실패!!!", ConsoleColor.Red);
                     player.TakeDamage(player.Health / 2);
+
+                    // 플레이어가 사망할시 저장되었던 데이터들은 날라가고, 게임종료
+                    if(player.IsDead)
+                    {
+                        File.Delete(stateMachine.GameInfo.Data.Path);
+                        Environment.Exit(0);
+                    }
+
                     stateMachine.ChangeScene(stateMachine.MainScene);
                     return;
                 }
@@ -84,7 +90,7 @@ namespace SpartaTextRPG._01.Scene.Game
 
             int damage = new Random().Next(minDamage, maxDamage + 1);
 
-            // 클리어시 받는 보상 계산
+            // 클리어시 받는 골드 보상 계산
             int minPercentage = (int)player.Attack;
             float rand = ((float)new Random().Next(minPercentage, minPercentage * 2 + 1) / 100.0f);
             int baseGold = dungeon.ClearGold[idx];
@@ -96,6 +102,12 @@ namespace SpartaTextRPG._01.Scene.Game
             Console.Write("기본 보상 : "); Render.ColorText($"{baseGold} G\n", ConsoleColor.Yellow);
             Console.Write("추가 보상 : "); Render.ColorText($"{plusGold} G\n", ConsoleColor.Yellow);
             player.Gold += baseGold + plusGold;
+
+            //클리어시 받는 경험치량
+            int clearExp = dungeon.ClearExp[idx];
+            Console.Write("클리어 경험치 : "); Render.ColorText($"{clearExp} G\n", ConsoleColor.Yellow);
+            player.Exp += clearExp;
+            player.CheckLevelUp();
         }
 
         bool ExitDungeon()
